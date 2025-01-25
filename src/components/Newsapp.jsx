@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import Card from './Card'
 
 
 const Newsapp = () => {
-  const [Search,setSearch]=useState("hansi")
+  const [search,setSearch]=useState("hansi")
+  const [NewsData,setNewsData]=useState(null)
   const API_KEY="a435b5dfaf094378979e237cc6365b2d"
   const getData=async function() {
-    const response=await axios.get(`https://newsapi.org/v2/everything?q=${Search}&apiKey=${API_KEY}`)
+    const response=await axios.get(`https://newsapi.org/v2/everything?q=${search}&apiKey=${API_KEY}`)
     const jsonData=await response.data
-    console.log(jsonData)
+    setNewsData(jsonData.articles)
+    console.log(jsonData.articles)
+  }
+
+  const handleinput=(e)=>{
+    setSearch(e.target.value)
   }
   return (
     <div>
@@ -22,13 +29,23 @@ const Newsapp = () => {
           <a href="">Trending</a>
         </ul>
         <div className='searchBar'>
-          <input type='text' placeholder='Search News'/>
+          <input type='text' placeholder='Search News' onChange={handleinput}/>
           <button onClick={getData}>Search</button>
           
         </div>
       </nav>
-      <div>
+      <p>Stay update with TrendyNews!</p>
+      <div className='categoryBtn'>
+        <button>Sports</button>
+        <button>Politics</button>
+        <button>Health</button>
+        <button>Entertainment</button>
+        <button>Fitness</button>
+        <button>Automobiles</button>
         
+      </div>
+      <div>
+      {NewsData?<Card data={NewsData}/>:null}
       </div>
     </div>
   )

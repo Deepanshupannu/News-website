@@ -1,16 +1,18 @@
 import React from "react";
-const card=()=>{
+const Card=({data})=>{
+    console.log(data);
+  
 
     return(
         <div>
             {data.map((curItem,index)=>{
                 return(
                     <div className="card">
-                        <img/>
+                        <img src={curItem.urlToImage}/>
                         <div className="cardcontent">
-                            <a href="">{curItem.title}</a>
-                            <p></p>
-                            <button>Read More</button>
+                            <a href={curItem.url}>{curItem.title}</a>
+                            <p>{curItem.description}</p>
+                            <button onClick={()=>window.open(curItem.url)}>Read More</button>
                         </div>
                     </div>
                 )
@@ -18,3 +20,4 @@ const card=()=>{
         </div>
     )
 }
+export default Card
