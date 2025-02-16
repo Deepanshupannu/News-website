@@ -4,7 +4,7 @@ const Card=({data})=>{
   
 
     return(
-        <div>
+        <div className="cr">
             {data.map((curItem,index)=>{
                 return(
                     <div className="card">
